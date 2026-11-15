@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Clipping - TikTok connection</title>
+<style>
+body{font-family:system-ui,-apple-system,Segoe UI,sans-serif;max-width:640px;margin:48px auto;padding:0 16px;color:#1a1a1a;background:#fafafa}
+.box{background:#fff;border:1px solid #ddd;border-radius:10px;padding:20px}
+h1{font-size:22px} code{word-break:break-all;display:block;background:#f2f2f2;padding:10px;border-radius:6px;font-size:13px}
+button{margin-top:12px;padding:10px 16px;border:0;border-radius:6px;background:#111;color:#fff;font-size:15px;cursor:pointer}
+.err{color:#b00020}
+</style>
+</head>
+<body>
+<h1>Clipping - TikTok connection</h1>
+<div class="box" id="out">Reading the answer from TikTok...</div>
+<p style="font-size:13px;color:#666">This page only displays what TikTok sent back in the address. It stores nothing and sends nothing anywhere. <a href="privacy.html">Privacy policy</a></p>
+<script>
+(function(){
+  var p=new URLSearchParams(location.search), o=document.getElementById('out');
+  if(p.get('error')){o.innerHTML='<p class="err">TikTok returned an error: '+(p.get('error_description')||p.get('error')).replace(/</g,'&lt;')+'</p>';return;}
+  if(!p.get('code')){o.textContent='No code in the address. Start again from "Connect TikTok".';return;}
+  o.innerHTML='<p><b>Authorized.</b> Copy this address and save it with the PowerShell command (the code expires within minutes).</p><code id="u"></code><button id="b">Copy address</button>';
+  document.getElementById('u').textContent=location.href;
+  document.getElementById('b').onclick=function(){navigator.clipboard.writeText(location.href).then(function(){document.getElementById('b').textContent='Copied';});};
+})();
+</script>
+</body>
+</html>
